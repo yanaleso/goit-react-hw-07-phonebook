@@ -2,13 +2,14 @@ import { Formik } from 'formik';
 import * as yup from "yup";
 import { useAddContactMutation, useGetContactsQuery } from 'redux/services/contactsApi';
 import { toast } from 'react-toastify';
-import { FormBox, FormError, Input, Label } from './ContactForm.styled';
+import { FormBox, FormError, Input, Label, Checkbox } from './ContactForm.styled';
 import Button from 'components/Button';
 
 export default function ContactForm({onCloseModal}) {
   const initialValues = {
     name: '',
     phone: '',
+    favourite: false,
   };
   const phoneRegExp = /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/;
   const contactSchema = yup.object().shape({
@@ -63,6 +64,13 @@ export default function ContactForm({onCloseModal}) {
           Phone
           <Input type="tel" name="phone" title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"/>
           <FormError name="phone" />
+        </Label>
+        <Label>
+          <Checkbox
+            type="checkbox"
+            name="favourite"
+          />
+          Add to favourite
         </Label>
 
         <Button type="submit">Add contact</Button>
